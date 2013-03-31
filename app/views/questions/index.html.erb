@@ -1,0 +1,42 @@
+<div class="page-header">
+<%= image_tag "photo.jpg", {:style => "height: 50px;"}  %>
+
+</div>
+
+<div class="page-header">
+  <h1>Current Polls</h1>
+</div>
+<div class="row">
+  <div class="span8">
+    <%= link_to "Create a new Poll", new_question_path, class: "btn btn-success" %>
+        <% @questions.each do |question| %>
+         <div class= "poll">
+          <div class="row">
+          <div class="span8">
+             <p><%= question.question %></p>
+            
+            <% question.choices.each_with_index do |c, i| %>
+           <ul>
+          <li>
+            <%= c.choice %>
+          <%= link_to "vote", answer_questions_path(:id => c.id) %></li>
+        </ul>
+          <% end %>   
+          
+    
+                 <div class="meta">
+                   <%= link_to time_ago_in_words(question.created_at) + " ago", question %>
+                        <span class ="admin">
+                            <%= link_to 'Edit', edit_question_path(question) %>
+                            <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+                        </span>
+                  </div>
+        </div>
+       </div>
+        </div>
+
+        <% end %>
+</div>
+<div class="span4">
+  <h1>Results will be placed here in a pie chart and map of the UK</h1>
+</div>
